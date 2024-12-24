@@ -1,0 +1,626 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  background-color: #f4f4f4;
+}
+
+.logo {
+  width: 100px;
+  height: 100px;
+  margin-right: 20px;
+}
+
+.header-text h1 {
+  margin: 0;
+  font-size: 24px;
+  color: #333;
+}
+
+.header-text p {
+  margin: 5px 0 0;
+  font-size: 18px;
+  color: #666;
+}
+
+.container {
+  display: flex;
+  flex-grow: 1;
+  width: 100%;
+}
+
+.sidebar {
+  width: 20%;
+  height: 100%;
+  background-color: #343a40;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 20px;
+  box-shadow: 4px 0 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.sidebar:hover {
+  box-shadow: 6px 0 20px rgba(0, 0, 0, 0.2);
+  transform: scale(1.00);
+}
+
+.menu-item {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 18px;
+  padding: 15px 20px;
+  margin: 10px 0;
+  cursor: pointer;
+  width: 100%;
+  text-align: center;
+  transition: background 0.3s, transform 0.3s ease;
+}
+
+
+
+.menu-item:hover {
+  background-color: #495057;
+  transform: scale(1.1);
+}
+
+.menu-item:active {
+  transform: scale(1.2);
+}
+
+.content {
+  width: 80%;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.section {
+  display: none;
+  animation: fadeIn 0.5s;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  background-color: #fff;
+  margin: 20px auto;
+  width: 100%;
+  border-radius: 8px;
+}
+
+.section.active {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.profile-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-top: 10px;
+  width: 100%;
+  height: 570px;
+}
+
+.profile-details {
+  flex: 1;
+  color: #333;
+  margin-left: 20px;
+  padding-right: 20px;
+  line-height: 2.5;
+}
+
+.profile-details h2 {
+  text-align: center;
+  color: #495057;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  font-size: 24px;
+}
+
+.profile-pic img {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.profile-pic img:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.semester-details {
+  margin-bottom: 20px;
+  font-size: 16px;
+  color: #333;
+}
+
+.course-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.course-table th, .course-table td {
+  border: 1px solid #ddd;
+  padding: 12px;
+  text-align: left;
+}
+
+.course-table th {
+  background-color: #f4f4f4;
+}
+
+.course-table tr:hover {
+  background-color: #f1f1f1;
+}
+
+.book-materials {
+  margin-top: 20px;
+}
+
+#book-list ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+
+#book-list ul li {
+  margin: 8px 0;
+  font-size: 16px;
+  line-height: 1.8;
+}
+
+#book-list {
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+#book-list h3{
+  text-align:center;
+}
+
+.book-columns {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+  margin-left: 30px;
+
+}
+
+.left-books, .right-books {
+  width: 45%;
+}
+
+button {
+  background-color: #5c6bc0;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+  margin-top: 10px;
+  margin-left: 30px;
+}
+
+button:hover {
+  background-color: #4b75d2;
+}
+
+.hidden {
+  display: none;
+}
+
+
+/* Your CSS remains the same except for this additional style for submenus */
+
+.submenu {
+  margin-left: -10px;
+  display:flex;
+  flex-direction: column;
+  
+}
+
+.hidden {
+  display: none;
+}
+
+.submenu-item {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 16px;
+  padding: 10px;
+  text-align: center;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.submenu-item:hover {
+  background-color: #e2eaf2;
+  color: black;
+  
+ 
+}
+
+
+/* General Section Styling */
+.section-title {
+  text-align: center;
+  text-decoration: underline;
+  color: #333;
+  margin-bottom: 20px;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+/* Course Enrollment Section */
+.course-section {
+  margin-bottom: 40px;
+}
+
+.enrollment-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.enrollment-table th, .enrollment-table td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: left;
+}
+
+.enrollment-table th {
+  background-color: #f4f4f4;
+  font-weight: bold;
+}
+
+.enrollment-table tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.enrollment-table tbody tr:hover {
+  background-color: #f1f1f1;
+}
+
+/* Approval Section */
+.approval-section {
+  margin-bottom: 40px;
+}
+
+.approval-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.approval-table th, .approval-table td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: center;
+}
+
+.approval-table th {
+  background-color: #f4f4f4;
+  font-weight: bold;
+}
+
+.approval-table tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.approval-table tbody tr:hover {
+  background-color: #f1f1f1;
+}
+
+/* Payment Section */
+.payment-section {
+  margin: 20px auto;
+  padding: 20px;
+  max-width: 600px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.payment-methods-title {
+  font-size: 18px;
+  margin-bottom: 15px;
+  text-align: center;
+  font-weight: bold;
+  color: #333;
+}
+
+.payment-methods {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.payment-btn {
+  flex: 1;
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.payment-btn:hover {
+  background-color: #0056b3;
+}
+
+.transaction-box {
+  text-align: center;
+}
+
+.transaction-box label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.transaction-box input {
+  width: 80%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.submit-btn {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.submit-btn:hover {
+  background-color: #218838;
+}
+
+
+/* Result paart  */
+
+
+/* .term-buttons {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.term-btn {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.term-btn:hover {
+  background-color: #0056b3;
+}
+
+.term-result {
+  margin-top: 20px;
+} */
+
+
+
+/* Styling the Level-Term Table */
+/* .level-term-table {
+  margin: 20px auto;
+  width: 80%;
+  border-spacing: 10px;
+  text-align: center;
+}
+
+.term-button {
+  background-color: #f28c28; 
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.term-button:hover {
+  background-color: #d76a1d;
+  box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.2);
+  transform: scale(1.05);
+}
+
+.term-button:active {
+  background-color: #b65719; 
+  transform: scale(1);
+}
+
+.result-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+}
+
+.result-table th,
+.result-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+
+.result-table th {
+  background-color: #f4a261;
+  color: rgb(9, 8, 8);
+}
+
+.result-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.result-table tr:hover {
+  background-color: #f4e4cf;
+}
+
+#term-name {
+  text-align: center;
+  font-size: 24px;
+  margin-top: 20px;
+  text-decoration: underline;
+  color: #d76a1d;
+}
+
+
+.result-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.result-table th,
+.result-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+
+.result-table th {
+  background-color: #f4f4f4;
+  font-weight: bold;
+}
+
+.result-table tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.result-table tbody tr:hover {
+  background-color: #f1f1f1;
+}
+
+.hidden {
+  display: none;
+} */
+
+
+/* .section {
+  padding: 20px;
+  background-color: #fff;
+  margin: 20px auto;
+  width: 80%;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+} */
+
+h2, h3 {
+  color: #333;
+}
+
+h3 {
+  font-size: 1.5rem;
+}
+
+.graph-container {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+#cgpa-graph {
+  max-width: 100%;
+  height: 400px;
+}
+
+.level-term-table {
+  width: 100%;
+  margin-top: 20px;
+}
+
+.level-term-table td {
+  text-align: center;
+  padding: 10px;
+}
+
+.term-button {
+  padding: 12px 24px;
+  font-size: 16px;
+  background-color: #f28c28;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.term-button:hover {
+  background-color: #e47d28;
+}
+
+.result-table {
+  width: 100%;
+  margin-top: 20px;
+  border-collapse: collapse;
+}
+
+.result-table th, .result-table td {
+  padding: 12px;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+.result-table th {
+  background-color: #f4a261;
+  color: white;
+}
+
+.result-content {
+  border: 2px solid #f4a261;
+  border-radius: 10px;
+  padding: 20px;
+  margin-top: 20px;
+  background-color: #fffdf4;
+}
+
+.hidden {
+  display: none;
+}
