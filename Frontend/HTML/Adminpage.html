@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Page</title>
+    <link rel="stylesheet" href="Adminpage.css" />
+  </head>
+  <body>
+    <div class="header">
+      <img src="pics/CUET_Vector_ogo.svg" alt="CUET Logo" class="logo" />
+      <div class="header-text">
+        <h1>Department of Computer Science & Engineering</h1>
+        <p>Chittagong University of Engineering and Technology</p>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="sidebar">
+        <button class="menu-item" onclick="showSection('profile')">
+          Profile
+        </button>
+        <button class="menu-item" onclick="showSection('add-member')">
+          Add Member
+        </button>
+        <button class="menu-item" onclick="showSection('assign-classes')">
+          Assign Classes
+        </button>
+        <button class="menu-item" onclick="showSection('assign-advisor')">
+          Assign Advisor
+        </button>
+      </div>
+
+      <div class="content">
+        <!-- Profile Section -->
+        <div id="profile" class="section active">
+          <h2>Profile</h2>
+          <p><strong>Admin ID :</strong> <span id="adminid"></span></p>
+          <p><strong>Department:</strong> Computer Science and Engineering</p>
+        </div>
+
+        <!-- Add Member Section -->
+        <div id="add-member" class="section">
+          <h2>Add Member</h2>
+          <form id="add-member-form">
+            <label for="user-type" class="full-width">User Type:</label>
+            <select
+              id="user-type"
+              class="full-width"
+              onchange="toggleUserTypeFields()"
+              required
+            >
+              <option value="">Select User Type</option>
+              <option value="student">Student</option>
+              <option value="faculty">Faculty</option>
+            </select>
+
+            <div id="student-fields" class="full-width" style="display: none">
+              <label for="student-name">Student Name:</label>
+              <input
+                type="text"
+                id="student-name"
+                placeholder="Enter Student Name"
+              />
+
+              <label for="father-name">Father's Name:</label>
+              <input
+                type="text"
+                id="father-name"
+                placeholder="Enter Father's Name"
+              />
+
+              <label for="mother-name">Mother's Name:</label>
+              <input
+                type="text"
+                id="mother-name"
+                placeholder="Enter Mother's Name"
+              />
+
+              <label for="district">District:</label>
+              <input type="text" id="district" placeholder="Enter District" />
+
+              <label for="date-of-birth">Date of Birth:</label>
+              <input
+                type="text"
+                id="date-of-birth"
+                placeholder="year-month-day"
+              />
+
+              <label for="admission-year">Admission Year:</label>
+              <input
+                type="text"
+                id="admission-year"
+                placeholder="year-month-day"
+              />
+
+              <label for="student-id">Student ID:</label>
+              <input
+                type="text"
+                id="student-id"
+                placeholder="Enter Student ID"
+              />
+
+              <label for="level">Level:</label>
+              <input type="text" id="level" placeholder="Enter Level" />
+
+              <label for="term">Term:</label>
+              <input type="text" id="term" placeholder="Enter Term" />
+
+              <label for="student-email">Email:</label>
+              <input
+                type="email"
+                id="student-email"
+                placeholder="Enter Email"
+              />
+
+              <label for="gender">Gender:</label>
+              <input type="text" id="gender" placeholder="Enter Gender" />
+
+              <label for="student-password">Password:</label>
+              <input
+                type="password"
+                id="student-password"
+                placeholder="Enter Password"
+              />
+
+              <label for="department-id">Department ID:</label>
+              <input
+                type="text"
+                id="department-id"
+                placeholder="Enter Department ID"
+              />
+            </div>
+
+            <div id="faculty-fields" class="full-width" style="display: none">
+              <label for="faculty-name">Faculty Name:</label>
+              <input
+                type="text"
+                id="faculty-name"
+                placeholder="Enter Faculty Name"
+              />
+
+              <label for="faculty-father-name">Father's Name:</label>
+              <input
+                type="text"
+                id="faculty-father-name"
+                placeholder="Enter Father's Name"
+              />
+
+              <label for="faculty-mother-name">Mother's Name:</label>
+              <input
+                type="text"
+                id="faculty-mother-name"
+                placeholder="Enter Mother's Name"
+              />
+
+              <label for="joining-date">Joining Date:</label>
+              <input
+                type="text"
+                id="joining-date"
+                placeholder="year-month-day"
+              />
+
+              <label for="faculty-email">Email:</label>
+              <input
+                type="email"
+                id="faculty-email"
+                placeholder="Enter Email"
+              />
+
+              <label for="faculty-contact-no">Contact No:</label>
+              <input
+                type="text"
+                id="faculty-contact-no"
+                placeholder="Enter Contact No"
+              />
+
+              <label for="faculty-position">Position:</label>
+              <input
+                type="text"
+                id="faculty-position"
+                placeholder="Enter Position"
+              />
+
+              <label for="faculty-password">Password:</label>
+              <input
+                type="password"
+                id="faculty-password"
+                placeholder="Enter Password"
+              />
+
+              <label for="faculty-department-id">Department ID:</label>
+              <input
+                type="text"
+                id="faculty-department-id"
+                placeholder="Enter Department ID"
+              />
+            </div>
+
+            <button type="submit" class="submit-btn">Add Member</button>
+          </form>
+        </div>
+        <!-- Assign Classes Section -->
+        <!-- Assign Classes Section -->
+        <div id="assign-classes" class="section">
+          <h2>Assign Classes</h2>
+          <div class="search-container">
+            <input type="text" id="search-year" placeholder="Enter Batch Year" required>
+          </div>
+          <div class="panel" id="teacher-panel">
+            <h3>Teachers</h3>
+            <!-- Teachers will be populated here -->
+          </div>
+          <div class="panel" id="course-panel">
+            <h3>Courses</h3>
+            <!-- Courses will be populated here -->
+          </div>
+          <form id="assign-classes-form">
+            <label for="assign-level">Level:</label>
+            <input type="text" id="assign-level" placeholder="Enter Level" required>
+            
+            <label for="assign-term">Term:</label>
+            <input type="text" id="assign-term" placeholder="Enter Term" required>
+            
+            <button type="submit" class="submit-btn">Assign Class</button>
+          </form>
+        </div>
+
+        <!-- Assign Advisor Section -->
+        <div id="assign-advisor" class="section">
+          <h2>Assign Advisor</h2>
+          <div class="search-container">
+            <input
+              type="text"
+              id="search-faculty-id"
+              placeholder="Search Faculty by ID"
+              onkeyup="filterFaculties()"
+            />
+            <input
+              type="text"
+              id="search-student-year"
+              placeholder="Search Student by Admission Year"
+              onkeyup="filterStudents()"
+            />
+          </div>
+          <div class="panel-container">
+            <div class="panel" id="faculty-panel">
+              <h3>Faculty</h3>
+              <!-- Faculty options will be populated here -->
+            </div>
+            <div class="panel" id="student-panel">
+              <h3>Students</h3>
+              <!-- Student options will be populated here -->
+            </div>
+          </div>
+          <form id="assign-advisor-form">
+            <button type="submit" class="submit-btn">Assign Advisor</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <script src="Adminpage.js"></script>
+  </body>
+</html>

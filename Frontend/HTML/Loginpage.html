@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LoginPage</title>
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="Loginpage.css" />
+  </head>
+  <body>
+    <div class="background"></div>
+
+    <div class="container">
+      <div class="content">
+        <h2 class="logo"><i class="bx bxs-institution">CSE Department</i></h2>
+        <div class="text-sci">
+          <h2>
+            Welcome!<br />
+            <span>To our Department Management</span>
+          </h2>
+        </div>
+      </div>
+
+      <div class="logreg-box active"> <!-- Set active class initially -->
+        <div class="form-box register">
+          <form action="#">
+            <h2>Select Your Role</h2>
+            <div class="input-box">
+              <button type="button" class="btn role-btn" data-role="faculty">Faculty</button>
+            </div>
+            <div class="input-box">
+              <button type="button" class="btn role-btn" data-role="student">Student</button>
+            </div>
+            <div class="input-box">
+              <button type="button" class="btn role-btn" data-role="admin">Admin</button>
+            </div>
+            <div class="login-register">
+              <p>To go back <a href="#" class="login-link"> Click Here </a></p>
+            </div>
+          </form>
+        </div>
+
+        <div class="form-box login">
+          <form id="login-form">
+            <h2>Login</h2>
+            <div class="input-box">
+              <span class="icon"><i class="bx bxs-id-card"></i></span>
+              <input type="text" id="user-id" required />
+              <label>ID</label>
+            </div>
+            <div class="input-box">
+              <span class="icon"><i class="bx bxs-lock-open-alt"></i></span>
+              <input type="password" id="password" required />
+              <label>Password</label>
+            </div>
+            <input type="hidden" id="role" />
+            <div class="remember-forgot">
+              <label><input type="checkbox" />Remember me</label>
+              <a href="#">Forgot Password?</a>
+            </div>
+            <button type="submit" class="btn">Sign In</button>
+            <div class="login-register">
+              <p>
+                To Choose your Role
+                <a href="#" class="role-link"> Click Here </a>
+              </p>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <script src="Loginpage.js"></script>
+  </body>
+</html>
