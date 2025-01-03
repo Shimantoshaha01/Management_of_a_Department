@@ -1,0 +1,441 @@
+create database DBMSPROJECT;
+
+
+
+USE DBMSPROJECT;
+
+
+
+create table Department(
+
+department_id int primary key,
+
+department_name varchar(100));
+
+
+
+create table Admin(
+
+A_id int primary key,
+
+A_password varchar(50));
+
+ 
+
+create table Faculty(
+
+Faculty_id int primary key auto_increment,
+
+Faculty_name varchar(100),
+
+F_father_name varchar(100),
+
+F_mother_name varchar(100),
+
+F_contact_number bigint,
+
+Email varchar(100),
+
+position varchar(100),
+
+Joining_date date,
+
+F_password varchar(50),
+
+adm_id int,
+
+dep_id int,
+
+foreign key(adm_id) references Admin(A_id),
+
+foreign key(dep_id) references Department(department_id)
+
+)auto_increment=4001;
+
+
+
+create table Student(
+
+Stu_id int primary key,
+
+Stu_name varchar(50),
+
+Stu_father_name varchar(50),
+
+Stu_mother_name varchar(50),
+
+Stu_DOB date,
+
+Stu_Email varchar(50),
+
+Stu_district varchar(50),
+
+Stu_level int,
+
+Stu_term int,
+
+Stu_admission_year date,
+
+Stu_gender varchar(20),
+
+Stu_password varchar(50),
+
+stu_dept_id int,
+
+Stu_faculty_id int,
+
+Stu_admin_id int,
+
+foreign key(Stu_admin_id) references Admin(A_id),
+
+foreign key(stu_dept_id) references Department(department_id),
+
+foreign key(Stu_faculty_id) references Faculty(Faculty_id)
+
+);
+
+insert into Book_material(Title,Author) values ('Database Management','Abraham Silberschatz');
+
+
+create table Book_material(
+
+Book_id bigint primary key auto_increment,
+
+Title varchar(200),
+
+Author varchar(100)) auto_increment=12000;
+
+
+
+create table Manages(
+
+Fac_id int ,
+
+BK_id bigint ,
+
+Course_code int,
+
+primary key(Fac_id,BK_id),
+
+foreign key(Fac_id) references Faculty(Faculty_id),
+
+foreign key(BK_id) references Book_material(Book_id),
+
+foreign key(Course_code) references Course(Course_code)
+
+);
+
+
+
+
+
+
+create table Payment(
+
+Payment_id varchar(50) primary key,
+
+Amount float,
+
+Payment_method varchar(50));
+
+
+
+create table Registration(
+
+Registration_id bigint primary key auto_increment,
+
+registration_date date,
+
+Status varchar(50),
+
+Stu_id int,
+
+foreign key(Stu_id) references Student(Stu_id)
+
+)auto_increment=9000000000;
+
+
+
+
+
+create table Pay_registration(
+
+Reg_id bigint,
+
+Pay_id varchar(50),
+
+primary key(Reg_id,Pay_id),
+
+foreign key(Reg_id) references Registration(Registration_id),
+
+foreign key(Pay_id) references Payment(Payment_id)
+
+);
+
+
+
+create table Course(
+
+Course_code int primary key,
+
+Course_title varchar(100),
+
+Credit float,
+
+Level int,
+
+Term int,
+
+Depart_id int,
+
+foreign key(Depart_id) references Department(department_id)
+
+);
+
+
+
+
+create table Course_part(
+
+Course_code int,
+
+Reg_id bigint,
+
+primary key(Course_code,Reg_id),
+
+foreign key(Reg_id) references Registration(Registration_id),
+
+foreign key(Course_code) references Course(Course_code));
+
+
+
+
+create table Enrollment(
+
+Stu_id int ,
+
+Course_code int,
+
+Marks int,
+
+primary key(Stu_id,Course_code),
+
+foreign key(Stu_id) references Student(Stu_id),
+
+foreign key(Course_code) references Course(Course_code)
+
+);
+
+
+
+create table Takes(
+Fac_id int not null,
+Cou_code int not null,
+Batch year,
+primary key(Fac_id,Cou_code,Batch),
+foreign key(Fac_id) references Faculty(Faculty_id),
+foreign key(Cou_code) references Course(Course_code)
+);
+
+
+insert into Department values (04,' Department of Computer Science & Engineering');
+
+insert into Admin values (101010,'admin123');
+
+
+
+INSERT INTO Faculty (Faculty_name, F_father_name, F_mother_name, F_contact_number, Email, position, Joining_date, F_password, adm_id, dep_id)
+
+VALUES
+
+    ('Dr. A. K. M. Mosharraf', 'Abdur Rahman', 'Shamsun Nahar', 8801711000001, 'mosharraf@cuet.ac.bd', 'Professor', '2005-03-15', 'mosharraf123', 101010, 4),
+
+    ('Dr. Md. Zahid Hossain', 'Mahmud Hossain', 'Farida Akter', 8801711000002, 'zahid.hossain@cuet.ac.bd', 'Associate Professor', '2010-07-25', 'zahid123', 101010, 4),
+
+    ('Dr. Rashedul Islam', 'Jalal Uddin', 'Rokeya Begum', 8801711000003, 'rashedul.islam@cuet.ac.bd', 'Head', '2008-01-10', 'rashedul123', 101010, 4),
+
+    ('Dr. Tamanna Rahman', 'Md. Shah Alam', 'Nurjahan Begum', 8801711000004, 'tamanna.rahman@cuet.ac.bd', 'Assistant Professor', '2015-09-20', 'tamanna123', 101010, 4),
+
+    ('Md. Mehedi Hasan', 'Nazmul Huda', 'Shahana Sultana', 8801711000005, 'mehedi.hasan@cuet.ac.bd', 'Lecturer', '2021-08-05', 'mehedi123', 101010, 4),
+
+    ('Dr. Fariha Tasnim', 'Md. Abdul Karim', 'Hasina Begum', 8801711000006, 'fariha.tasnim@cuet.ac.bd', 'Professor', '2003-12-30', 'fariha123', 101010, 4),
+
+    ('Dr. Saifur Rahman', 'Jahangir Alam', 'Salma Khatun', 8801711000007, 'saifur.rahman@cuet.ac.bd', 'Associate Professor', '2012-06-01', 'saifur123', 101010, 4),
+
+    ('Dr. Mahbubur Rahman', 'Abdul Matin', 'Ayesha Siddique', 8801711000008, 'mahbubur.rahman@cuet.ac.bd', 'Professor', '2000-05-12', 'mahbubur123', 101010, 4),
+
+    ('Dr. Sabrina Sharmin', 'Md. Nur Alam', 'Jahanara Begum', 8801711000009, 'sabrina.sharmin@cuet.ac.bd', 'Assistant Professor', '2017-03-10', 'sabrina123', 101010, 4),
+
+    ('Md. Khaled Mahmud', 'Abdul Hannan', 'Fazilatun Nesa', 8801711000010, 'khaled.mahmud@cuet.ac.bd', 'Lecturer', '2022-01-20', 'khaled123', 101010, 4),
+
+    ('Dr. Tasnim Jahan', 'Mokbul Hossain', 'Nurjahan Khatun', 8801711000011, 'tasnim.jahan@cuet.ac.bd', 'Professor', '2007-11-10', 'tasnim123', 101010, 4),
+
+    ('Dr. Mamunur Rashid', 'Md. Kamrul Hasan', 'Rehana Akter', 8801711000012, 'mamunur.rashid@cuet.ac.bd', 'Associate Professor', '2014-02-28', 'mamunur123', 101010, 4),
+
+    ('Dr. Nusrat Jahan', 'Anwar Hossain', 'Majeda Begum', 8801711000013, 'nusrat.jahan@cuet.ac.bd', 'Assistant Professor', '2020-03-18', 'nusrat123', 101010, 4),
+
+    ('Md. Ziaul Haque', 'Abdul Gaffar', 'Shirin Akter', 8801711000014, 'ziaul.haque@cuet.ac.bd', 'Lecturer', '2022-08-25', 'ziaul123', 101010, 4),
+
+    ('Dr. Maruf Ahmed', 'Shafiqur Rahman', 'Zakia Sultana', 8801711000015, 'maruf.ahmed@cuet.ac.bd', 'Professor', '2006-05-19', 'maruf123', 101010, 4),
+
+    ('Dr. Tanvir Hossain', 'Md. Khaled Hossain', 'Rokeya Akhter', 8801711000016, 'tanvir.hossain@cuet.ac.bd', 'Associate Professor', '2011-10-11', 'tanvir123', 101010, 4),
+
+    ('Dr. Shirin Akter', 'Md. Shahidul Islam', 'Mahmuda Khatun', 8801711000017, 'shirin.akter@cuet.ac.bd', 'Assistant Professor', '2017-04-07', 'shirin123', 101010, 4),
+
+    ('Md. Tareq Aziz', 'Habibur Rahman', 'Anwara Begum', 8801711000018, 'tareq.aziz@cuet.ac.bd', 'Lecturer', '2023-01-15', 'tareq123', 101010, 4),
+
+    ('Dr. Nazmul Hasan', 'Golam Mostafa', 'Shahida Begum', 8801711000019, 'nazmul.hasan@cuet.ac.bd', 'Assistant Professor', '2018-11-22', 'nazmul123', 101010, 4),
+
+    ('Md. Jahanara Khan', 'Md. Nur Islam', 'Ruma Akhter', 8801711000020, 'jahanara.khan@cuet.ac.bd', 'Lecturer', '2022-03-10', 'jahanara123', 101010, 4);
+
+
+
+
+
+
+
+
+
+INSERT INTO Student (Stu_id, Stu_name, Stu_father_name, Stu_mother_name, Stu_DOB, Stu_Email, Stu_district, Stu_level, Stu_term, Stu_admission_year, Stu_gender, Stu_password, Stu_faculty_id, stu_dept_id, Stu_admin_id)
+
+VALUES
+
+    (1904001, 'Mohammad Arif', 'Abdur Rahman', 'Shahana Begum', '2000-04-15', 'u1904001@student.cuet.ac.bd', 'Chittagong', 4, 2, '2020-02-15', 'Male', 'arif123', 4001, 4, 101010),
+
+    (1904002, 'Sabina Akter', 'Azizul Akter', 'Runa Akter', '2000-07-23', 'u1904002@student.cuet.ac.bd', 'Dhaka', 4, 2, '2020-02-15', 'Female', 'sabina123', 4001, 4, 101010),
+
+    (1904003, 'Mohammad Zahid', 'Abdur Rashid', 'Masuda Begum', '2000-11-10', 'u1904003@student.cuet.ac.bd', 'Sylhet', 4, 2, '2020-02-15', 'Male', 'zahid123', 4001, 4, 101010),
+
+    (1904004, 'Tasmin Rahman', 'Giasuddin Rahman', 'Fahmida Rahman', '2000-02-28', 'u1904004@student.cuet.ac.bd', 'Rajshahi', 4, 2, '2020-02-15', 'Female', 'tasmin123', 4001, 4, 101010),
+
+    (1904005, 'Sabbir Ahmed', 'Mohammad Hossain', 'Farida Begum', '2001-06-12', 'u1904005@student.cuet.ac.bd', 'Khulna', 4, 2, '2020-02-15', 'Male', 'sabbir123', 4001, 4, 101010),
+
+    (1904006, 'Nilufar Begum', 'Abul Hossain', 'Khaleda Begum', '2000-09-18', 'u1904006@student.cuet.ac.bd', 'Barisal', 4, 2, '2020-02-15', 'Female', 'nilufar123', 4002, 4, 101010),
+
+    (1904007, 'Mohammad Ali', 'Ibrahim Ali', 'Jamila Begum', '1999-03-20', 'u1904007@student.cuet.ac.bd', 'Mymensingh', 4, 2, '2020-02-15', 'Male', 'ali123', 4002, 4, 101010),
+
+    (1904008, 'Shahnaz Akter', 'Aslam Akter', 'Nila Akter', '2000-01-15', 'u1904008@student.cuet.ac.bd', 'Comilla', 4, 2, '2020-02-15', 'Female', 'shahnaz123', 4002, 4, 101010),
+
+    (1904009, 'Mohammad Rahman', 'Saddam Hossain', 'Farida Begum', '2000-12-22', 'u1904009@student.cuet.ac.bd', 'Rangpur', 4, 2, '2020-02-15', 'Male', 'mohammad123', 4002, 4, 101010),
+
+    (1904010, 'Farhana Yasmin', 'Mahmudul Hasan', 'Fahmida Yasmin', '2001-08-30', 'u1904010@student.cuet.ac.bd', 'Bogra', 4, 2, '2020-02-15', 'Female', 'farhana123', 4002, 4, 101010),
+
+    (2004001, 'Al Amin', 'Ali Hossain', 'Fahmida Akter', '2001-06-05', 'u2004001@student.cuet.ac.bd', 'Jessore', 3, 2, '2021-02-15', 'Male', 'alamin123', 4004, 4, 101010),
+
+    (2004002, 'Mim Reza', 'Nasiruddin Reza', 'Masuda Begum', '2001-04-30', 'u2004002@student.cuet.ac.bd', 'Feni', 3, 2, '2021-02-15', 'Female', 'mimreza123', 4004, 4, 101010),
+
+    (2004003, 'Taher Ahmed', 'Kamrul Ahmed', 'Jannat Ara', '2002-10-19', 'u2004003@student.cuet.ac.bd', 'Satkhira', 3, 2, '2021-02-15', 'Male', 'taher123', 4004, 4, 101010),
+
+    (2004004, 'Shahnewaz Khan', 'Mohammad Anwar', 'Rokia Begum', '2001-03-11', 'u2004004@student.cuet.ac.bd', 'Patuakhali', 3, 2, '2021-02-15', 'Male', 'shahnewaz123', 4004, 4, 101010),
+
+    (2004005, 'Farzana Rahman', 'Gulzar Rahman', 'Afia Rahman', '2001-09-08', 'u2004005@student.cuet.ac.bd', 'Dinajpur', 3, 2, '2021-02-15', 'Female', 'farzana123', 4004, 4, 101010),
+
+    (2004006, 'Kawsar Ahmed', 'Saiful Islam', 'Halima Khatun', '2001-05-26', 'u2004006@student.cuet.ac.bd', 'Thakurgaon', 3, 2, '2021-02-15', 'Male', 'kawsar123', 4007, 4, 101010),
+
+    (2004007, 'Ruhul Amin', 'Ali Hossain', 'Monwara Begum', '2001-01-13', 'u2004007@student.cuet.ac.bd', 'Chandpur', 3, 2, '2021-02-15', 'Male', 'ruhul123', 4007, 4, 101010),
+
+    (2004008, 'Shirin Begum', 'Mokhlesur Rahman', 'Jahanara Begum', '2000-11-17', 'u2004008@student.cuet.ac.bd', 'Rajshahi', 3, 2, '2021-02-15', 'Female', 'shirin123', 4007, 4, 101010),
+
+    (2004009, 'Rahat Chowdhury', 'Nurul Islam', 'Fahmida Chowdhury', '2001-02-08', 'u2004009@student.cuet.ac.bd', 'Khulna', 3, 2, '2021-02-15', 'Male', 'rahat123', 4007, 4, 101010),
+
+    (2004010, 'Momena Yasmin', 'Mohammad Karim', 'Laila Yasmin', '2001-07-21', 'u2004010@student.cuet.ac.bd', 'Comilla', 3, 2, '2021-02-15', 'Female', 'momena123', 4007, 4, 101010);
+
+
+
+select * from Enrollment;
+
+
+INSERT INTO Student (Stu_id, Stu_name, Stu_father_name, Stu_mother_name, Stu_DOB, Stu_Email, Stu_district, Stu_level, Stu_term, Stu_admission_year, Stu_gender, Stu_password, Stu_faculty_id, stu_dept_id, Stu_admin_id)
+
+VALUES
+
+    (2104001, 'Anisur Rahman', 'Shahadat Hossain', 'Rokeya Begum', '2002-12-02', 'u2104001@student.cuet.ac.bd', 'Noakhali', 2, 1, '2022-02-15', 'Male', 'anisur123', 4001, 4, 101010),
+
+    (2104002, 'Mariya Akter', 'Shahidul Alam', 'Sharmin Akter', '2002-03-09', 'u2104002@student.cuet.ac.bd', 'Tangail', 2, 1, '2022-02-15', 'Female', 'mariya123', 4001, 4, 101010),
+
+    (2104003, 'Tanvir Hossain', 'Sultan Mahmud', 'Mala Begum', '2002-07-14', 'u2104003@student.cuet.ac.bd', 'Jhenaidah', 2, 1, '2022-02-15', 'Male', 'tanvir123', 4001, 4, 101010),
+
+    (2104004, 'Nazmul Haque', 'Abdul Haque', 'Saleha Begum', '2003-05-11', 'u2104004@student.cuet.ac.bd', 'Sylhet', 2, 1, '2022-02-15', 'Male', 'nazmul123', 4001, 4, 101010),
+
+    (2104005, 'Sarmin Sultana', 'Nazrul Islam', 'Shirin Sultana', '2002-10-20', 'u2104005@student.cuet.ac.bd', 'Cox’s Bazar', 2, 1, '2022-02-15', 'Female', 'sarmin123', 4001, 4, 101010),
+
+    (2104006, 'Asif Ahmed', 'Anwar Hossain', 'Feroza Begum', '2002-06-08', 'u2104006@student.cuet.ac.bd', 'Narsingdi', 2, 1, '2022-02-15', 'Male', 'asif123', 4002, 4, 101010),
+
+    (2104007, 'Nadia Hasan', 'Jahangir Alam', 'Mithila Hasan', '2002-01-18', 'u2104007@student.cuet.ac.bd', 'Barisal', 2, 1, '2022-02-15', 'Female', 'nadia123', 4002, 4, 101010),
+
+    (2104008, 'Rakin Mahmud', 'Kabir Ahmed', 'Sadia Mahmud', '2003-08-13', 'u2104008@student.cuet.ac.bd', 'Gazipur', 2, 1, '2022-02-15', 'Male', 'rakin123', 4002, 4, 101010),
+
+    (2104009, 'Sumaya Yasmin', 'Manzur Hasan', 'Afsana Yasmin', '2003-03-22', 'u2104009@student.cuet.ac.bd', 'Narail', 2, 1, '2022-02-15', 'Female', 'sumaya123', 4002, 4, 101010),
+
+    (2104010, 'Adnan Khan', 'Kamrul Khan', 'Sumi Akter', '2003-11-30', 'u2104010@student.cuet.ac.bd', 'Brahmanbaria', 2, 1, '2022-02-15', 'Male', 'adnan123', 4002, 4, 101010),
+
+    (2204001, 'Afia Rahman', 'Mamun Rahman', 'Nasrin Begum', '2003-07-05', 'u2204001@student.cuet.ac.bd', 'Chittagong', 1, 1, '2023-02-15', 'Female', 'afia123', 4004, 4, 101010),
+
+    (2204002, 'Habibur Rahman', 'Selim Rahman', 'Sufia Rahman', '2003-02-25', 'u2204002@student.cuet.ac.bd', 'Dhaka', 1, 1, '2023-02-15', 'Male', 'habibur123', 4004, 4, 101010),
+
+    (2204003, 'Israt Jahan', 'Abul Kalam', 'Hasina Begum', '2004-01-15', 'u2204003@student.cuet.ac.bd', 'Sylhet', 1, 1, '2023-02-15', 'Female', 'israt123', 4004, 4, 101010),
+
+    (2204004, 'Mahfuz Ahmed', 'Shahadat Hossain', 'Selina Begum', '2004-05-09', 'u2204004@student.cuet.ac.bd', 'Rajshahi', 1, 1, '2023-02-15', 'Male', 'mahfuz123', 4004, 4, 101010),
+
+    (2204005, 'Sania Akter', 'Nazim Uddin', 'Rokeya Begum', '2003-11-17', 'u2204005@student.cuet.ac.bd', 'Khulna', 1, 1, '2023-02-15', 'Female', 'sania123', 4004, 4, 101010),
+
+    (2204006, 'Fahim Khan', 'Mustafizur Rahman', 'Nusrat Jahan', '2003-09-01', 'u2204006@student.cuet.ac.bd', 'Barisal', 1, 1, '2023-02-15', 'Male', 'fahim123', 4007, 4, 101010),
+
+    (2204007, 'Sharmin Sultana', 'Kamal Hossain', 'Tasmin Sultana', '2004-03-19', 'u2204007@student.cuet.ac.bd', 'Jessore', 1, 1, '2023-02-15', 'Female', 'sharmin123', 4007, 4, 101010),
+
+    (2204008, 'Raihanul Karim', 'Anisur Karim', 'Zarina Begum', '2003-10-27', 'u2204008@student.cuet.ac.bd', 'Mymensingh', 1, 1, '2023-02-15', 'Male', 'raihan123', 4007, 4, 101010),
+
+    (2204009, 'Mahamudul Hasan', 'Fazlul Hasan', 'Shabana Yasmin', '2004-06-18', 'u2204009@student.cuet.ac.bd', 'Dinajpur', 1, 1, '2023-02-15', 'Male', 'mahamudul123', 4007, 4, 101010),
+
+    (2204010, 'Sumaiya Rahman', 'Nurul Haque', 'Sharifa Rahman', '2003-12-05', 'u2204010@student.cuet.ac.bd', 'Patuakhali', 1, 1, '2023-02-15', 'Female', 'sumaiya123', 4007, 4, 101010);
+
+
+
+insert into Course values
+
+(141,'Structured Programming',3,1,1,4),
+
+(181,'Basic Electrical Engineering',3,1,1,4),
+
+(100,'Computer Fundamentals & Ethics(sessional)',0.75,1,1,4),
+
+(142,'Structured Programming(sessional)',1.5,1,1,4),
+
+(182,'Basic Electrical Engineering(sessional)',1.5,1,1,4),
+
+(111,'Discrete Mathematics',3,1,2,4),
+
+(143,'Object Oriented Programming',3,1,2,4),
+
+(183,'Electrical Devices and Circuits',4,1,2,4),
+
+(144,'Object Oriented Programming(sessional)',1.5,1,2,4),
+
+(184,'Electrical Devices and Circuits(sessional)',1.5,1,2,4),
+
+(241,'Data Structures',3,2,1,4),
+
+(221,'Digital Logic Design',3,2,1,4),
+
+(242,'Data Structures(sessional)',1.5,2,1,4),
+
+(222,'Digital Logic Design(sessional)',1.5,2,1,4),
+
+(223,'Digital Signal Processing',3,2,2,4),
+
+(243,'Algorithm Design and Analysis',3,2,2,4),
+
+(251,'Database Management System',3,2,2,4),
+
+(283,'Electrical Drives and Instrumentation',3,2,2,4),
+
+(224,'Digital Signal Processing(sessional)',0.75,2,2,4),
+
+(244,'Algorithm Design and Analysis(sessional)',1.5,2,2,4),
+
+(252,'Database Management System(sessional)',1.5,2,2,4),
+
+(284,'Electrical Drives and Instrumentation(sessional)',0.75,2,2,4),
+
+(202,'Software Development with JAVA (sessional)',1.5,2,2,4);
+
