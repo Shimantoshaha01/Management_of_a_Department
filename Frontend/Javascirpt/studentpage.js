@@ -1,167 +1,345 @@
-function toggleBooks(show) {
-  const bookList = document.getElementById('book-list');
-  const showButton = document.getElementById('show-button');
-  
-  if (show) {
-    bookList.classList.remove('hidden');
-    showButton.classList.add('hidden');
-  } else {
-    bookList.classList.add('hidden');
-    showButton.classList.remove('hidden');
-  }
-}
 
+// All Starts From here 
 function showSection(sectionId) {
   const sections = document.querySelectorAll('.section');
   sections.forEach(section => section.classList.remove('active'));
-  
+
   const activeSection = document.getElementById(sectionId);
   activeSection.classList.add('active');
 }
 
-function toggleSubMenu(submenuId) {
-  const submenu = document.getElementById(submenuId);
-  submenu.classList.toggle('hidden');
+document.addEventListener('DOMContentLoaded', function () {
+  const studentId = localStorage.getItem('userId');
+  if (!studentId) {
+    console.error('Student ID not found in local storage');
+    return;
+  }
+
+  // Fetch student data from the backend
+  fetch(`/api/student/${studentId}`)
+    .then(response => response.json())
+    .then(data => {
+      if (data) {
+        // Update the profile section with fetched data
+        document.getElementById('profile-name').textContent = data.Stu_name;
+        document.getElementById('profile-father-name').textContent = data.Stu_father_name;
+        document.getElementById('profile-mother-name').textContent = data.Stu_mother_name;
+        document.getElementById('profile-dob').textContent = data.Stu_DOB;
+        document.getElementById('profile-email').textContent = data.Stu_Email;
+        document.getElementById('profile-id').textContent = data.Stu_id;
+        document.getElementById('profile-district').textContent = data.Stu_district;
+        document.getElementById('profile-level').textContent = data.Stu_level;
+        document.getElementById('profile-term').textContent = data.Stu_term;
+        document.getElementById('profile-admission-year').textContent = data.Stu_admission_year;
+        document.getElementById('profile-gender').textContent = data.Stu_gender;
+
+        // Update the current semester section with fetched data
+        document.getElementById('level').textContent = data.Stu_level;
+        document.getElementById('term').textContent = data.Stu_term;
+
+        // Fetch all student results to populate the graph
+        fetchAllStudentResults(studentId);
+
+        // Fetch current semester data
+        fetch(`/api/current-semester/${studentId}`)
+          .then(response => response.json())
+          .then(courses => {
+            if (courses) {
+              const courseTableBody = document.querySelector('.course-table tbody');
+              courseTableBody.innerHTML = ''; // Clear previous data
+
+              courses.forEach(course => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                  <td>${course.Course_code}</td>
+                  <td>${course.Course_title}</td>
+                  <td>${course.Faculty_names}</td>
+                `;
+                courseTableBody.appendChild(row);
+              });
+            } else {
+              console.error('No courses found for the current semester');
+            }
+          })
+          .catch(error => {
+            console.error('Error fetching current semester data:', error);
+          });
+
+
+
+// Fetch and display book materials
+document.getElementById('show-button').addEventListener('click', function() {
+  fetch(`/api/book-materials/${studentId}`)
+    .then(response => response.json())
+    .then(data => {
+      const bookList = document.getElementById('book-list');
+      const leftBooks = document.querySelector('.left-books ul');
+      const rightBooks = document.querySelector('.right-books ul');
+
+      leftBooks.innerHTML = '';
+      rightBooks.innerHTML = '';
+
+      data.forEach((book, index) => {
+        const bookItem = document.createElement('li');
+        bookItem.textContent = `Course Code: ${book.Course_code} - ${book.Title} by ${book.Author}`;
+
+        if (index % 2 === 0) {
+          leftBooks.appendChild(bookItem);
+        } else {
+          rightBooks.appendChild(bookItem);
+        }
+      });
+
+      toggleBooks(true);
+    })
+    .catch(error => {
+      console.error('Error fetching book materials:', error);
+    });
+});
+
+
+
+        // Fetch course registration data
+        fetch(`/api/course-registration/${studentId}`)
+          .then(response => response.json())
+          .then(coursess => {
+            if (coursess) {
+              const enrollmentTableBody = document.querySelector('.enrollment-table tbody');
+              enrollmentTableBody.innerHTML = ''; // Clear previous data
+
+              coursess.forEach(coursed => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                  <td>${coursed.Course_code}</td>
+                  <td>${coursed.Course_title}</td>
+                  <td>${coursed.Credit}</td>
+                  <td>Regular</td>
+                `;
+                enrollmentTableBody.appendChild(row);
+              });
+            } else {
+              console.error('No courses found for the course registration');
+            }
+          })
+          .catch(error => {
+            console.error('Error fetching course registration data:', error);
+          });
+      } else {
+        console.error('Student data not found');
+      }
+    })
+    .catch(error => {
+      console.error('Error fetching student data:', error);
+    });
+});
+
+function fetchAllStudentResults(studentId) {
+  fetch(`/api/student-all-results/${studentId}`)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
+    .then(results => {
+      if (results) {
+        const allResults = {};
+        results.forEach(result => {
+          const term = `L${result.Level}T${result.Term}`;
+          if (!allResults[term]) {
+            allResults[term] = {
+              courses: [],
+              totalCredits: 0,
+              totalCg: 0
+            };
+          }
+
+          const percentage = (result.Marks / (result.Credit * 100)) * 100;
+          let grade, cg;
+
+          if (percentage >= 80) {
+            grade = 'A+';
+            cg = 4.0;
+          } else if (percentage >= 75) {
+            grade = 'A';
+            cg = 3.75;
+          } else if (percentage >= 70) {
+            grade = 'A-';
+            cg = 3.5;
+          } else if (percentage >= 65) {
+            grade = 'B+';
+            cg = 3.25;
+          } else if (percentage >= 60) {
+            grade = 'B';
+            cg = 3.0;
+          } else if (percentage >= 55) {
+            grade = 'B-';
+            cg = 2.75;
+          } else if (percentage >= 50) {
+            grade = 'C+';
+            cg = 2.5;
+          } else if (percentage >= 45) {
+            grade = 'C';
+            cg = 2.25;
+          } else if (percentage >= 40) {
+            grade = 'D';
+            cg = 2.0;
+          } else {
+            grade = 'F';
+            cg = 0.0;
+          }
+
+          allResults[term].courses.push({
+            code: result.Course_code,
+            title: result.Course_title,
+            credit: result.Credit,
+            sessional: result.Credit < 3 ? 'Yes' : 'No',
+            grade,
+            cg
+          });
+
+          allResults[term].totalCredits += result.Credit;
+          allResults[term].totalCg += cg * result.Credit;
+        });
+
+        Object.keys(allResults).forEach(term => {
+          allResults[term].cgpa = allResults[term].totalCg / allResults[term].totalCredits;
+        });
+
+        // Sort terms to ensure they are in the correct order
+        const sortedTerms = Object.keys(allResults).sort((a, b) => {
+          const [aLevel, aTerm] = a.match(/\d+/g).map(Number);
+          const [bLevel, bTerm] = b.match(/\d+/g).map(Number);
+          return aLevel - bLevel || aTerm - bTerm;
+        });
+
+        // Create the CGPA chart with all results
+        createChart(allResults, sortedTerms);
+      } else {
+        console.error('No results found for the student');
+      }
+    })
+    .catch(error => {
+      console.error('Error fetching student results:', error);
+    });
 }
 
+function fetchStudentResults(studentId, level, term) {
+  fetch(`/api/student-results/${studentId}/${level}/${term}`)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
+    .then(results => {
+      if (results) {
+        const termResults = {
+          courses: [],
+          totalCredits: 0,
+          totalCg: 0
+        };
 
-// Result part 
+        results.forEach(result => {
+          const percentage = (result.Marks / (result.Credit * 100)) * 100;
+          let grade, cg;
 
+          if (percentage >= 80) {
+            grade = 'A+';
+            cg = 4.0;
+          } else if (percentage >= 75) {
+            grade = 'A';
+            cg = 3.75;
+          } else if (percentage >= 70) {
+            grade = 'A-';
+            cg = 3.5;
+          } else if (percentage >= 65) {
+            grade = 'B+';
+            cg = 3.25;
+          } else if (percentage >= 60) {
+            grade = 'B';
+            cg = 3.0;
+          } else if (percentage >= 55) {
+            grade = 'B-';
+            cg = 2.75;
+          } else if (percentage >= 50) {
+            grade = 'C+';
+            cg = 2.5;
+          } else if (percentage >= 45) {
+            grade = 'C';
+            cg = 2.25;
+          } else if (percentage >= 40) {
+            grade = 'D';
+            cg = 2.0;
+          } else {
+            grade = 'F';
+            cg = 0.0;
+          }
 
-// const termData = {
-//   L1T1: [
-//     { code: "CSE101", title: "Programming Fundamentals", credit: 3, sessional: "No", grade: "A", cg: "3.7" },
-//     { code: "CSE102", title: "Discrete Mathematics", credit: 3, sessional: "No", grade: "B", cg: "3.2" },
-//     { code: "CSE101", title: "Programming Fundamentals", credit: 3, sessional: "No", grade: "A", cg: "3.7" },
-//     { code: "CSE102", title: "Discrete Mathematics", credit: 3, sessional: "No", grade: "B", cg: "3.2" },
-//     { code: "CSE101", title: "Programming Fundamentals", credit: 3, sessional: "No", grade: "A", cg: "3.7" },
-//     { code: "CSE102", title: "Discrete Mathematics", credit: 3, sessional: "No", grade: "B", cg: "3.2" },
-//     { code: "CSE101", title: "Programming Fundamentals", credit: 3, sessional: "No", grade: "A", cg: "3.7" },
-//     { code: "CSE102", title: "Discrete Mathematics", credit: 3, sessional: "No", grade: "B", cg: "3.2" },
-//     { code: "CSE101", title: "Programming Fundamentals", credit: 3, sessional: "No", grade: "A", cg: "3.7" },
-//     { code: "CSE102", title: "Discrete Mathematics", credit: 3, sessional: "No", grade: "B", cg: "3.2" }
-//   ],
-//   L1T2: [
-//     { code: "CSE201", title: "Data Structures", credit: 3, sessional: "No", grade: "A+", cg: "4.0" },
-//     { code: "CSE202", title: "Digital Logic Design", credit: 3, sessional: "Yes", grade: "A", cg: "3.8" },
-//     { code: "CSE101", title: "Programming Fundamentals", credit: 3, sessional: "No", grade: "A", cg: "3.7" },
-//     { code: "CSE102", title: "Discrete Mathematics", credit: 3, sessional: "No", grade: "B", cg: "3.2" },
-//     { code: "CSE101", title: "Programming Fundamentals", credit: 3, sessional: "No", grade: "A", cg: "3.7" },
-//     { code: "CSE102", title: "Discrete Mathematics", credit: 3, sessional: "No", grade: "B", cg: "3.2" },
-//     { code: "CSE101", title: "Programming Fundamentals", credit: 3, sessional: "No", grade: "A", cg: "3.7" },
-//     { code: "CSE102", title: "Discrete Mathematics", credit: 3, sessional: "No", grade: "B", cg: "3.2" }
-//   ],
-//   // Add data for other terms here...
-// };
+          termResults.courses.push({
+            code: result.Course_code,
+            title: result.Course_title,
+            credit: result.Credit,
+            sessional: result.Credit < 3 ? 'Yes' : 'No',
+            grade,
+            cg
+          });
 
-// function showTermResults(term) {
-//   const results = termData[term];
-//   const termNameMap = {
-//     L1T1: "Level 1, Term 1",
-//     L1T2: "Level 1, Term 2",
-//     L2T1: "Level 2, Term 1",
-//     L2T2: "Level 2, Term 2",
-//     L3T1: "Level 3, Term 1",
-//     L3T2: "Level 3, Term 2",
-//     L4T1: "Level 4, Term 1",
-//     L4T2: "Level 4, Term 2"
-//   };
+          termResults.totalCredits += result.Credit;
+          termResults.totalCg += cg * result.Credit;
+        });
 
-//   document.getElementById("term-name").innerText = termNameMap[term];
-//   const tableBody = document.getElementById("result-table-body");
-//   tableBody.innerHTML = "";
+        termResults.cgpa = termResults.totalCg / termResults.totalCredits;
 
-//   results.forEach(row => {
-//     const tr = document.createElement("tr");
-//     tr.innerHTML = `
-//       <td>${row.code}</td>
-//       <td>${row.title}</td>
-//       <td>${row.credit}</td>
-//       <td>${row.sessional}</td>
-//       <td>${row.grade}</td>
-//       <td>${row.cg}</td>
-//     `;
-//     tableBody.appendChild(tr);
-//   });
+        // Display the results for the selected term
+        displayTermResults(termResults, `L${level}T${term}`);
+      } else {
+        console.error('No results found for the student');
+      }
+    })
+    .catch(error => {
+      console.error('Error fetching student results:', error);
+    });
+}
 
-//   document.getElementById("term-result").classList.remove("hidden");
-// }
+function displayTermResults(termResults, term) {
+  const resultTable = document.getElementById('result-table-body');
+  resultTable.innerHTML = '';
 
-const cgpaData = {
-  L1T1: {
-    courses: [
-      { code: 'CSE101', title: 'Introduction to Computer Science', credit: 3, sessional: 'Yes', grade: 'A', cg: 3.8 },
-      { code: 'CSE102', title: 'Mathematics I', credit: 4, sessional: 'Yes', grade: 'B+', cg: 3.6 },
-    ],
-    cgpa: 3.7
-  },
-  L1T2: {
-    courses: [
-      { code: 'CSE201', title: 'Data Structures', credit: 3, sessional: 'No', grade: 'A-', cg: 3.7 },
-      { code: 'CSE202', title: 'Mathematics II', credit: 4, sessional: 'Yes', grade: 'B', cg: 3.5 },
-    ],
-    cgpa: 3.6
-  },
-  L2T1: {
-    courses: [
-      { code: 'CSE301', title: 'Discrete Mathematics', credit: 3, sessional: 'Yes', grade: 'B+', cg: 3.6 },
-      { code: 'CSE302', title: 'Computer Architecture', credit: 4, sessional: 'Yes', grade: 'A', cg: 3.8 },
-    ],
-    cgpa: 3.7
-  },
-  L2T2: {
-    courses: [
-      { code: 'CSE401', title: 'Algorithms', credit: 3, sessional: 'Yes', grade: 'A', cg: 3.9 },
-      { code: 'CSE402', title: 'Operating Systems', credit: 4, sessional: 'No', grade: 'B+', cg: 3.6 },
-    ],
-    cgpa: 3.75
-  },
-  L3T1: {
-    courses: [
-      { code: 'CSE501', title: 'Database Systems', credit: 3, sessional: 'Yes', grade: 'B', cg: 3.4 },
-      { code: 'CSE502', title: 'Software Engineering', credit: 4, sessional: 'Yes', grade: 'A', cg: 3.8 },
-    ],
-    cgpa: 3.6
-  },
-  L3T2: {
-    courses: [
-      { code: 'CSE601', title: 'Computer Networks', credit: 3, sessional: 'No', grade: 'A-', cg: 3.7 },
-      { code: 'CSE602', title: 'Artificial Intelligence', credit: 4, sessional: 'Yes', grade: 'B+', cg: 3.6 },
-    ],
-    cgpa: 3.65
-  },
-  L4T1: {
-    courses: [
-      { code: 'CSE701', title: 'Web Technologies', credit: 3, sessional: 'Yes', grade: 'A', cg: 3.9 },
-      { code: 'CSE702', title: 'Computer Graphics', credit: 4, sessional: 'No', grade: 'A', cg: 4.0 },
-    ],
-    cgpa: 3.95
-  },
-  L4T2: {
-    courses: [
-      { code: 'CSE801', title: 'Machine Learning', credit: 3, sessional: 'Yes', grade: 'A-', cg: 3.8 },
-      { code: 'CSE802', title: 'Cloud Computing', credit: 4, sessional: 'Yes', grade: 'A', cg: 4.0 },
-    ],
-    cgpa: 3.9
-  },
-};
+  termResults.courses.forEach(course => {
+    const row = document.createElement('tr');
+    row.innerHTML = `
+      <td>${course.code}</td>
+      <td>${course.title}</td>
+      <td>${course.credit}</td>
+      <td>${course.sessional}</td>
+      <td>${course.grade}</td>
+      <td>${course.cg}</td>
+    `;
+    resultTable.appendChild(row);
+  });
+
+  document.getElementById('term-name').textContent = `${term} Result`;
+  document.getElementById('term-result').classList.remove('hidden');
+}
+
+function showTermResults(term) {
+  const studentId = localStorage.getItem('userId');
+  const [level, termNumber] = term.match(/\d+/g).map(Number);
+  fetchStudentResults(studentId, level, termNumber);
+}
 
 // Chart.js setup
 let chart = null;
 
-function createChart(cgpaData) {
-  const terms = Object.keys(cgpaData);
-  const cgpas = terms.map(term => cgpaData[term].cgpa);
-  
-  if (chart) {
-    chart.destroy();
-  }
+function createChart(allResults, sortedTerms) {
+  const cgpas = sortedTerms.map(term => allResults[term].cgpa);
 
   const ctx = document.getElementById('cgpa-graph').getContext('2d');
   chart = new Chart(ctx, {
     type: 'line',
     data: {
-      labels: terms,
+      labels: sortedTerms,
       datasets: [{
         label: 'CGPA',
         data: cgpas,
@@ -198,28 +376,58 @@ function createChart(cgpaData) {
   });
 }
 
-// Display selected term result
-function showTermResults(term) {
-  const termData = cgpaData[term];
-  const resultTable = document.getElementById('result-table-body');
-  resultTable.innerHTML = '';
-
-  termData.courses.forEach(course => {
-    const row = document.createElement('tr');
-    row.innerHTML = `
-      <td>${course.code}</td>
-      <td>${course.title}</td>
-      <td>${course.credit}</td>
-      <td>${course.sessional}</td>
-      <td>${course.grade}</td>
-      <td>${course.cg}</td>
-    `;
-    resultTable.appendChild(row);
-  });
-
-  document.getElementById('term-name').textContent = `${term} Result`;
-  document.getElementById('term-result').classList.remove('hidden');
+function toggleBooks(show) {
+  const bookList = document.getElementById('book-list');
+  if (show) {
+    bookList.classList.remove('hidden');
+  } else {
+    bookList.classList.add('hidden');
+  }
 }
 
-// Initial chart creation
-createChart(cgpaData);
+// Payment
+document.querySelectorAll('.payment-btn').forEach(button => {
+  button.addEventListener('click', function () {
+    document.querySelectorAll('.payment-btn').forEach(btn => btn.classList.remove('selected'));
+    button.classList.add('selected');
+    document.getElementById('payment-method').value = button.getAttribute('data-method');
+  });
+});
+
+document.querySelector('.submit-btn').addEventListener('click', function (e) {
+  e.preventDefault();
+
+  const paymentMethod = document.querySelector('.payment-btn.selected').getAttribute('data-method');
+  const transactionId = document.getElementById('transaction-id').value;
+  const amount = document.getElementById('amount').value;
+  const studentId = localStorage.getItem('userId'); // Assuming student ID is stored in local storage
+
+  const data = {
+    paymentMethod,
+    transactionId,
+    amount,
+    studentId
+  };
+
+  fetch('/api/register', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+  })
+    .then(response => response.json())
+    .then(data => {
+      if (data.success) {
+        alert('Registration successful');
+      } else {
+        alert('Registration failed: ' + data.message);
+      }
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
+});
+
+
+
