@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Head of Department</title>
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+  />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            padding: 5px;
+            background-color: #f4f4f4;
+        }
+        
+        .logo {
+            width: 100px;
+            height: 100px;
+            margin-right: 20px;
+        }
+        
+        .header-text h1 {
+            margin: 0;
+            font-size: 20px;
+            color: #333;
+        }
+        
+        .header-text p {
+            margin: 5px 0 0;
+            font-size: 16px;
+            color: #666;
+        }
+
+        .details-page {
+            display: flex;
+            padding: 20px;
+            gap: 20px;
+            align-items: flex-start;
+            flex-direction: row-reverse; /* Places the image on the right */
+        }
+        .details-page img{
+           flex: 1;
+        }
+        .details-image {
+            flex-direction: right;
+            width: 180px;  /* Reduced size */
+            height: auto; /* Maintains aspect ratio */
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .details-content {
+            background-color: #ffffff;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            flex: 2; /* Makes the content section take more space */
+        }
+
+        .details-content h1 {
+            margin-top: 0;
+            color: #333;
+        }
+
+        .details-content p {
+            margin: 10px 0;
+            color: #555;
+            text-align: justify;
+        }
+
+        /* Optional styling for the right section */
+        .details-header h2 {
+            margin: 5px 0;
+            font-size: 18px;
+            color: #333;
+        }
+
+        .details-header p {
+            margin: 0;
+            font-size: 14px;
+            color: #555;
+            font-weight: bold;
+        }
+
+        .last_part {
+            display: flex;
+            align-items: center; /* Centers vertically */
+            justify-content: space-between; /* Distributes space between text and icons */
+            padding: 0 20px;
+            color: white;
+            background: rgb(35, 32, 32);
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            height: 80px; /* Increased height for better layout */
+            width: inherit; 
+        }
+        
+        .last_part p {
+          margin: 10 px;
+      }
+        
+        .last_part i {
+            font-size: 50px;
+            margin: 10 px;
+            padding: 0 5px;
+            color: #ffeeee; /* Icon color */
+        }
+        
+        .detailsall {
+            display: flex;
+            flex-wrap: wrap; /* Wraps to a new line on smaller screens */
+            gap: 20px; /* Space between the sections */
+            background-color: rgba(0, 0, 0, 0.05); /* Light shady background */
+            padding: 20px;
+            border-radius: 10px; /* Adds rounded corners to the entire container */
+          }
+          
+          .detailsall > div {
+            flex: 1; /* Equal width for all sections */
+            min-width: 200px; /* Prevents sections from shrinking too much */
+            background-color: #ffffff; /* White background for sections */
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Adds a soft shadow */
+            padding: 20px; /* Inner spacing */
+            border-radius: 10px; /* Rounded corners */
+            transition: transform 0.3s, box-shadow 0.3s; /* Smooth transition for hover effects */
+            line-height: 1.8; /* Adjusts line spacing */
+          }
+          
+          .detailsall > div:hover {
+            transform: scale(1.05); /* Slightly enlarge on hover */
+            box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2); /* Enhance shadow on hover */
+            background-color: #f5f5f5; /* Slightly darker background on hover */
+          }
+          
+          ul {
+            list-style: none; /* Removes bullet points */
+            padding: 0;
+            margin: 10px;
+          }
+          
+          ul li {
+            margin-bottom: 10px; /* Space between list items */
+            padding: 5px;
+            transition: background-color 0.3s, border-radius 0.3s; /* Smooth hover effect */
+          }
+          
+          ul li:hover {
+            background-color: #dcdcdc; /* Highlight list item on hover */
+            border-radius: 10px; /* Adds a rounded effect on hover */
+          }
+          
+          h2 {
+            margin-bottom: 15px; /* Space below headers */
+            text-align: center; /* Center align the headers */
+          }
+          
+          #contact {
+            flex: 2; /* Allows the contact section to be larger */
+          }
+          
+    </style>
+</head>
+
+<body>
+
+    <div class="header">
+        <img src="pics/CUET_Vector_ogo.svg" alt="CUET Logo" class="logo">
+        <div class="header-text">
+            <h1>Department of Computer Science & Engineering</h1>
+            <p>Chittagong University of Engineering and Technology</p>
+        </div>
+    </div>
+    <div class="details-page">
+        <div class="details-header">
+        <img src="pics/face.jpg" alt="Head of Department" class="details-image">
+       
+            <h2>Dr. Abu Hasnat Mohammad Ashfak Habib</h2>
+            <p>Professor & Head</p>
+        </div>
+       
+        <div class="details-content">
+            <h1>Message from the Head</h1>
+            <p>
+                Welcome to the Department of Computer Science and Engineering (CSE), CUET! Dear Students, Colleagues, Alumni, and Friends, it is with immense pride that I extend a warm welcome to you all to the Department of Computer Science and Engineering (CSE) at Chittagong University of Engineering and Technology (CUET) – the pioneer of computer science education in Bangladesh. As the first department of its kind in the country, CSE BUET has consistently set the standard for excellence in education, research, and innovation. Offering Bachelor's, Master's, and Ph.D. degrees in Computer Science and Engineering, as well as specialized postgraduate programs (Master's, and Ph.D.) in Artificial Intelligence and Machine Learning (AI & ML), Data Science, Cyber Security, and Software Engineering, we are dedicated to nurturing the next generation of leaders and innovators in these rapidly evolving fields. Our recent expansion in this front is supported by the Ministry of Education (Bangladesh) and funded by the Asian Development Bank (ADB). Our world-class education and research activities are designed to equip students with the knowledge, skills, and mindset needed to thrive in today's dynamic tech landscape. With a highly competitive environment, state-of-the-art facilities, and a team of dedicated faculty members and colleagues, we ensure that every student reaches their full potential and emerges as a trailblazer in their chosen field. Currently, our department hosts about 700 undergraduate students and 400 graduate students, all of whom are driven by a shared passion for excellence and a commitment to making a difference in the world. I am proud to share that the Department of CSE, BUET has been consistently recognized for its excellence on the global stage. In the QS World University Rankings by Subject published in 2021, we achieved an impressive ranking in the range of 301-350. This recognition underscores our unwavering dedication to academic excellence and innovation. Our students have participated and secured commendable positions in ACM Collegiate Programming contests for more than 20 years. Our faculties have secured many national and international prestigious awards. Our undergraduate and graduate students are regularly publishing in top CS, AI, and Data Engineering venues. All these achievements are a testament to the remarkable progress we have made in recent years. To our students, I encourage you to seize every opportunity that comes your way, embrace challenges as opportunities for growth, and strive for excellence in all your endeavors. To our colleagues, I extend my deepest appreciation for your tireless dedication and commitment to advancing our department's mission. Your expertise, mentorship, and collaborative spirit are essential to our collective success. To our esteemed alumni, I extend my heartfelt gratitude for your continued support and contributions to our department's success. Your achievements serve as an inspiration to current and future generations of CSE students. And to all others who are connected to our department, whether as collaborators, industry partners & professionals, or enthusiasts, I invite you to join us on this exciting journey of discovery, innovation, and impact. Together, let us continue to build upon our legacy of excellence and chart new frontiers in computer science and engineering. Once again, welcome to the Department of Computer Science and Engineering at BUET. Feel free to stop by my office or send an email to me (eunus@cse.buet.ac.bd or headcse@cse.buet.ac.bd), if you want to join us on this exciting journey towards discovering, innovating, and making a meaningful impact in your business and society, thereby creating a smarter and more sustainable nation. <br>
+
+              <b> Warm regards,<br>
+                Dr. Abu Hasnat Mohammad Ashfak Habib,<br>
+                  Head of Department of Computer Science and Engineering,<br>
+                  Chittagong University of Engineering and Technology (CUET).<br>
+            </p>
+        </div>
+    </div>
+
+    <div class="detailsall">
+        <div id="contact">
+          <img src="pics/CUET_Vector_ogo.svg" alt="CUET Logo" class="logo" />
+        <div class="header-text">
+          <h3>Department of Computer Science & Engineering</h3>
+          <p>Chittagong University of Engineering and Technology</p>
+        </div>
+          <ul>
+            <li>Telephone: 880-2-55155097</li>
+            <li>PABX: 880-2-55167100,</li>
+            <li>55167228-57, Ext: 6432</li>
+            <li>E-mail: headcse@cse.cuet.ac.bd</li>
+          </ul>
+        </div>
+        <div id="about_us">
+          <h2>About us</h2>
+          <ul>
+            <li>Mission & Vision</li>
+            <li>History</li>
+            <li>Awards</li>
+            <li>About</li>
+            <li>Contact</li>
+          </ul>
+        </div>
+  
+        <div id="academic">
+          <h2>Academic</h2>
+          <ul>
+            <li>Academic Calendar</li>
+            <li>Class Routine</li>
+            <li>undergraduate Studies</li>
+            <li>Graduate</li>
+          </ul>
+        </div>
+  
+        <div id="admission">
+          <h2>Admission</h2>
+          <ul>
+            <li>Undergraduate</li>
+            <li>Postgraduate</li>
+            <li>PG latest admission notice</li>
+          
+          </ul>
+        </div>
+        <div id="Research">
+          <h2>Research</h2>
+          <ul>
+            <li>Research Area</li>
+            <li>Faculty</li>
+            <li>Publication</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="last_part">
+        <p>
+          Copyright © Department of Computer Science and Engineering, CUET,
+          Chittagong
+        </p>
+        <div>
+          <a href="https://www.facebook.com" target="_blank">
+            <i class="fab fa-facebook"></i>
+          </a>
+          <a href="https://wa.me/your-number" target="_blank">
+            <i class="fab fa-whatsapp"></i>
+          </a>
+        </div>
+      </div>
+</body>
+
+</html>

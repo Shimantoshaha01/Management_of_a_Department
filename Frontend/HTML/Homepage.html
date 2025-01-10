@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home Page</title>
+    <link rel="stylesheet" href="Homepage.css" />
+
+    <!-- Include Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+  </head>
+
+  <body>
+    <div class="header">
+      <img src="pics/CUET_Vector_ogo.svg" alt="CUET Logo" class="logo" />
+      <div class="header-text">
+        <h1>Department of Computer Science & Engineering</h1>
+        <p>Chittagong University of Engineering and Technology</p>
+      </div>
+    </div>
+    <div class="navbar">
+      <div class="navbar-menu">
+        <a href="Homepage.html">Home</a>
+        <a href="#about">About</a>
+        <a href="#academic">Academic</a>
+        <a href="#library">Library</a>
+        <a href="FacultyInformation.html">Faculties</a>
+        <a href="#alumni">Alumni</a>
+        <a href="#downloads">Downloads</a>
+        <a href="#notice">Notices</a>
+        <a href="#admission">Admission</a>
+        <!-- <a href="Loginpage.html" class="login-button login_container">Login</a> -->
+        <a href="#" class="login-button login_container" onclick="navigateToLogin()">Login</a>
+      </div>
+    </div>
+
+    <div class="slider">
+      <img src="pics/university.jpg" class="slide active" alt="Slide 1" />
+      <img src="pics/university1.jpg" class="slide" alt="Slide 2" />
+      <img src="pics/university2.jpg" class="slide" alt="Slide 3" />
+      <img src="pics/university3.jpg" class="slide active" alt="Slide 4" />
+      <img src="pics/university4.jpg" class="slide" alt="Slide 5" />
+      <img src="pics/university5.jpg" class="slide" alt="Slide 6" />
+      <img src="pics/university6.jpg" class="slide" alt="Slide 7" />
+      <div class="prev" onclick="changeSlide(-1)">&#10094;</div>
+      <div class="next" onclick="changeSlide(1)">&#10095;</div>
+    </div>
+
+    <div class="dots">
+      <span class="dot active" onclick="setSlide(1)"></span>
+      <span class="dot" onclick="setSlide(2)"></span>
+      <span class="dot" onclick="setSlide(3)"></span>
+      <span class="dot" onclick="setSlide(4)"></span>
+      <span class="dot" onclick="setSlide(5)"></span>
+      <span class="dot" onclick="setSlide(6)"></span>
+      <span class="dot" onclick="setSlide(7)"></span>
+    </div>
+
+    <!-- For about us  -->
+
+    <div class="about-section">
+      <div class="about-left">
+        <h2>About Us</h2>
+        <p>
+          The Department of Computer Science and Engineering (CSE) at Chittagong
+          University of Engineering and Technology (CUET), established in 1984,
+          is the pioneer of computer science and engineering education in
+          Bangladesh. As the first department of its kind in the country, CSE
+          CUET has consistently set the standard for excellence in education,
+          research, and innovation, and has been widely recognized on domestic
+          and global stages. Since its establishment, the department has been
+          attracting the best and the brightest students of the country. The
+          department offers Bachelor's, Master's, and Ph.D. degrees in Computer
+          Science and Engineering, and regularly updates the curriculum to
+          maintain international standards. It is also offering specialized
+          postgraduate programs (Master's and Ph.D.) in Artificial Intelligence
+          and Machine Learning (AI & ML), Data Science, Cyber Security, Software
+          Engineering, and Computing to nurture the next generation of leaders
+          and innovators in these rapidly evolving fields. The recent expansion
+          in this front is supported by the Ministry of Education (Bangladesh)
+          and funded by the Asian Development Bank (ADB). The world-class
+          education and research activities here are designed to equip students
+          with the knowledge, skills, and mindset needed to thrive in today's
+          and tomorrow’s dynamic tech landscape. With a highly competitive
+          environment, state-of-the-art facilities, and a team of dedicated
+          faculty members and staff, it is ensured that students reach their
+          full potential and emerge as trailblazers in their chosen field.
+          Currently, the department hosts about 700 undergraduate students and
+          400 graduate students, all of whom are driven by a shared passion for
+          excellence and a commitment to making a difference in the world. The
+          students have participated and secured commendable positions in the
+          International Collegiate Programming Contest (ICPC) world finals
+          regularly in the last three decades, and became Asia West Champions in
+          2021 and 2023. The research outcomes of undergraduate and
+          post-graduate students are regularly published in prestigious journals
+          and conferences, and students have received numerous awards including
+          many best paper awards. Students of the department regularly get
+          admitted to top ranked universities including MIT, UC Berkeley, CMU,
+          etc., for postgraduate degrees, which is a testament to the excellence
+          of the students and the quality of education at the department.
+        </p>
+        <a href="http://127.0.0.1:5500/Department_management/Head_message.html"
+          >Learn More About Our Head</a
+        >
+      </div>
+      <div class="about-right">
+        <div class="image-grid">
+          <img src="pics/club1.jpg" alt="Photo 1" />
+          <img src="pics/club2.jpg" alt="Photo 2" />
+          <img src="pics/club3.jpg" alt="Photo 3" />
+          <img src="pics/club4.jpg" alt="Photo 4" />
+          <!-- <img src="pics/club2.jpg" alt="Photo 5"> -->
+        </div>
+      </div>
+    </div>
+
+    <div class="detailsall">
+      <div id="contact">
+        <img src="pics/CUET_Vector_ogo.svg" alt="CUET Logo" class="logo" />
+        <div class="header-text">
+          <h3>Department of Computer Science & Engineering</h3>
+          <p>Chittagong University of Engineering and Technology</p>
+        </div>
+        <ul>
+          <li>Telephone: 880-2-55155097</li>
+          <li>PABX: 880-2-55167100,</li>
+          <li>55167228-57, Ext: 6432</li>
+          <li>E-mail: headcse@cse.cuet.ac.bd</li>
+        </ul>
+      </div>
+      <div id="about_us">
+        <h2>About us</h2>
+        <ul>
+          <li>Mission & Vision</li>
+          <li>History</li>
+          <li>Awards</li>
+          <li>About</li>
+          <li>Contact</li>
+        </ul>
+      </div>
+
+      <div id="academic">
+        <h2>Academic</h2>
+        <ul>
+          <li>Academic Calendar</li>
+          <li>Class Routine</li>
+          <li>undergraduate Studies</li>
+          <li>Graduate</li>
+        </ul>
+      </div>
+
+      <div id="admission">
+        <h2>Admission</h2>
+        <ul>
+          <li>Undergraduate</li>
+          <li>Postgraduate</li>
+          <li>PG latest admission notice</li>
+        </ul>
+      </div>
+      <div id="Research">
+        <h2>Research</h2>
+        <ul>
+          <li>Research Area</li>
+          <li>Faculty</li>
+          <li>Publication</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="last_part">
+      <p>
+        Copyright © Department of Computer Science and Engineering, CUET,
+        Chittagong
+      </p>
+      <div>
+        <a href="https://www.facebook.com" target="_blank">
+          <i class="fab fa-facebook"></i>
+        </a>
+        <a href="https://wa.me/your-number" target="_blank">
+          <i class="fab fa-whatsapp"></i>
+        </a>
+      </div>
+    </div>
+
+    <script src="Homepage.js"></script>
+  </body>
+</html>
