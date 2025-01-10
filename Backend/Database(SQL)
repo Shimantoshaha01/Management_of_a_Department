@@ -439,3 +439,18 @@ insert into Course values
 
 (202,'Software Development with JAVA (sessional)',1.5,2,2,4);
 
+INSERT INTO Course (Course_code, Course_title, Credit, Level, Term, Depart_id)
+VALUES(311, 'Theory of Computation', 3, 3, 1, 4),
+(312, 'Theory of Computation (sessional)', 1.5, 3, 1, 4),
+(313, 'Computer Architecture', 3, 3, 1, 4),
+(314, 'Computer Architecture (sessional)', 1.5, 3, 1, 4),
+(315, 'Operating Systems (Advanced)', 3, 3, 1, 4),
+(316, 'Operating Systems (Advanced) (sessional)', 1.5, 3, 1, 4),
+
+-- Semester 4 Courses
+(411, 'Compiler Design', 3, 4, 1, 4),
+(412, 'Compiler Design (sessional)', 1.5, 4, 1, 4),
+(413, 'Database Systems (Advanced)', 3, 4, 1, 4),
+(414, 'Database Systems (Advanced) (sessional)', 1.5, 4, 1, 4),
+(415, 'Software Engineering (Advanced)', 3, 4, 1, 4),
+(416, 'Software Engineering (Advanced) (sessional)', 1.5, 4, 1, 4);
