@@ -181,6 +181,8 @@ app.get('/api/course-registration/:studentId', (req, res) => {
 });
 
 
+
+
 //Route To Show books
 
 app.get('/api/book-materials/:studentId', (req, res) => {
@@ -666,6 +668,8 @@ app.get("/api/courses", (req, res) => {
 });
 
 
+
+
 // Route to assign classes to faculty and enroll students
 app.post("/api/assign-classes", (req, res) => {
     const { facultyIds, courseId, batchYear, level, term } = req.body;
@@ -910,10 +914,14 @@ app.post('/api/login', (req, res) => {
     });
 });
 
-// Serve the login page at the root path
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'Frontend', 'Loginpage.html'));
-});
+    res.sendFile(path.join(__dirname, 'Frontend', 'Homepage.html'));
+  });
+
+// Serve the login page at the root path
+// app.get('/', (req, res) => {
+//     res.sendFile(path.join(__dirname, 'Frontend', 'Loginpage.html'));
+// });
 
 // Use a different port if 3000 is already in use
 const PORT = process.env.PORT || 3001;
